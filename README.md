@@ -18,6 +18,18 @@
 > [!NOTE]
 > 这是基于 [MacacaGames/MacbookAccordion](https://github.com/MacacaGames/MacbookAccordion) 的个人改造版本，用来在本地学习和娱乐。原项目与本仓库均遵循 MIT License。
 
+## 直接下载
+
+[**下载 MacbookAccordion 1.0.0（DMG）**](https://github.com/simony3/MacbookAccordion/releases/download/v1.0.0/MacbookAccordion-v1.0.0.dmg)
+
+备用下载：[通用 ZIP](https://github.com/simony3/MacbookAccordion/releases/download/v1.0.0/MacbookAccordion-v1.0.0-macOS-universal.zip) · [SHA-256 校验文件](https://github.com/simony3/MacbookAccordion/releases/download/v1.0.0/SHA256SUMS.txt)
+
+1. 打开下载的 DMG。
+2. 把 `MacbookAccordion.app` 拖到 `Applications`。
+3. 从“应用程序”中启动 MacbookAccordion。
+
+当前版本同时支持 Apple Silicon 和 Intel Mac。由于它没有 Apple Developer ID 签名与公证，macOS 可能阻止首次启动。如果你信任本仓库下载的文件，请先尝试打开一次，然后前往“系统设置 → 隐私与安全性”，在安全性区域选择“仍要打开”。具体操作可参考 [Apple 官方说明](https://support.apple.com/zh-cn/102445)。
+
 ## 界面
 
 ![MacbookAccordion 当前界面](docs/assets/app-ui.jpg)

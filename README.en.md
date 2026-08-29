@@ -14,6 +14,18 @@
 > [!NOTE]
 > This is a personal modification of [MacacaGames/MacbookAccordion](https://github.com/MacacaGames/MacbookAccordion), made for local learning and fun. The original project and this repository use the MIT License.
 
+## Download
+
+[**Download MacbookAccordion 1.0.0 (DMG)**](https://github.com/simony3/MacbookAccordion/releases/download/v1.0.0/MacbookAccordion-v1.0.0.dmg)
+
+Alternatives: [universal ZIP](https://github.com/simony3/MacbookAccordion/releases/download/v1.0.0/MacbookAccordion-v1.0.0-macOS-universal.zip) · [SHA-256 checksums](https://github.com/simony3/MacbookAccordion/releases/download/v1.0.0/SHA256SUMS.txt)
+
+1. Open the downloaded DMG.
+2. Drag `MacbookAccordion.app` into `Applications`.
+3. Launch MacbookAccordion from Applications.
+
+This build supports both Apple Silicon and Intel Macs. It is not signed with an Apple Developer ID or notarized, so macOS may block the first launch. If you trust the file downloaded from this repository, try to open it once, then open System Settings → Privacy & Security and choose Open Anyway in the Security section. See [Apple's guidance](https://support.apple.com/en-ca/102445) for details.
+
 ## Interface
 
 ![Current MacbookAccordion interface](docs/assets/app-ui.jpg)

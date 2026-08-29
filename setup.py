@@ -13,8 +13,8 @@ OPTIONS = {
         'CFBundleName': 'MacbookAccordion',
         'CFBundleDisplayName': 'MacbookAccordion',
         'CFBundleIdentifier': 'games.macaca.macbookaccordion',
-        'CFBundleShortVersionString': '0.0.2',
-        'CFBundleVersion': '0.0.2',
+        'CFBundleShortVersionString': '1.0.0',
+        'CFBundleVersion': '1.0.0',
         'NSHighResolutionCapable': True,
     },
 }
