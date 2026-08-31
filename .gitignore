@@ -21,3 +21,9 @@ dist/
 .DS_Store
 .AppleDouble
 .LSOverride
+
+# Native Swift / Xcode local products and user state
+.build/
+.swiftpm/
+xcuserdata/
+*.xcuserstate

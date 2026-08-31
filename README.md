@@ -20,6 +20,8 @@
 
 ## 直接下载
 
+> **此分支新增了完整的 Swift 原生版。** 用 Xcode 打开根目录的 `MacbookAccordion.xcodeproj`，选择 `MacbookAccordion` → `My Mac`，按 `⌘R` 运行。原生版需要 macOS 14+，不需要 Python 或第三方运行库。详见 [原生版开发与验证说明](Native/README.md)。下方 1.0.0 下载仍是已发布的 Python 版。
+
 [**下载 MacbookAccordion 1.0.0（DMG）**](https://github.com/simony3/MacbookAccordion/releases/download/v1.0.0/MacbookAccordion-v1.0.0.dmg)
 
 备用下载：[通用 ZIP](https://github.com/simony3/MacbookAccordion/releases/download/v1.0.0/MacbookAccordion-v1.0.0-macOS-universal.zip) · [SHA-256 校验文件](https://github.com/simony3/MacbookAccordion/releases/download/v1.0.0/SHA256SUMS.txt)
@@ -32,9 +34,9 @@
 
 ## 界面
 
-![MacbookAccordion 当前界面](docs/assets/app-ui.jpg)
+![MacbookAccordion 原生 SwiftUI 界面](Native/native-ui.png)
 
-当前界面面向第一次接触手风琴的人：不用理解进气、漏气、失谐等参数，只要开合屏幕并按键即可。
+上图为本分支的原生 SwiftUI 版：演奏反馈、交互琴键、四种音色，以及可收起的声音检查器。原有参数和演奏逻辑保留。上方 1.0.0 下载仍是旧版 Python 应用。
 
 ## 可以做什么
 
@@ -43,11 +45,24 @@
 - 通过 `经典`、`柔和`、`明亮`、`搞怪` 四种声音风格快速切换音色
 - 用音量、开合灵敏度和音高按钮完成常用调整
 - 无法读取屏幕角度时，自动进入键盘试玩模式，用 `↑` / `↓` 模拟开合
-- 需要时展开“更多设置”，继续调整原有的声音与风箱参数
+- 需要时打开“声音检查器”（旧版为“更多设置”），继续调整原有的声音与风箱参数
 
 ## 开始玩
 
-### 打包成 macOS App
+### 运行原生版（Xcode）
+
+打开 `MacbookAccordion.xcodeproj`，选择 `MacbookAccordion` → `My Mac`，按 `⌘R`。需要 macOS 14+，不需要 Python。
+
+也可在项目目录构建通用版：
+
+```bash
+./build_native_app.sh
+open 'build/native/Build/Products/Release/MacbookAccordion Native.app'
+```
+
+原生构建不会覆盖已安装的旧版应用。参数对照、验证结果及已知限制见 [原生版说明](Native/README.md)。
+
+### 打包旧版 Python macOS App
 
 在项目目录运行：
 
@@ -70,7 +85,7 @@ open -a MacbookAccordion
 
 > 构建脚本会覆盖 `/Applications/MacbookAccordion.app`，并在安装完成后清理临时的 `build/` 与 `dist/` 目录。
 
-### 直接用 Python 运行
+### 直接运行旧版 Python 应用
 
 ```bash
 python3 -m venv .venv
@@ -114,9 +129,9 @@ python lid_accordion.py
 | 明亮 | 反应更快，声音更清脆 |
 | 搞怪 | 更明显的失谐与气流感 |
 
-“更多设置”中仍保留进气速度、漏气速度、平滑度、起音、释音、失谐和气流噪声。手动调整声音细节后，应用会把当前状态视为自定义音色。
+原生版“声音检查器”和旧版“更多设置”均保留进气速度、漏气速度、平滑度、起音、释音、失谐和气流噪声。手动调整声音细节后，应用会把当前状态视为自定义音色。
 
-## 环境要求
+## 旧版 Python 环境要求
 
 | 项目 | 说明 |
 | --- | --- |
@@ -127,9 +142,9 @@ python lid_accordion.py
 
 ## 工作原理
 
-应用通过 `pybooklid` 读取屏幕开合角度，计算开合速度，再沿用原项目的风箱模型把速度转换为气量和声音力度。键盘按键对应 MIDI 音符，`PolyAccordionSynth` 使用实时合成产生声音。
+原生版通过 IOKit 读取屏幕开合角度，使用 Swift 保留原有风箱模型和合成公式，由 AVAudioEngine 输出音频、SwiftUI 绘制界面。
 
-界面使用 `pygame-ce` 绘制，并在支持的 Mac 上使用 Retina 高分辨率画布。应用图标同时写入 macOS Bundle 和 Pygame 的运行时窗口，避免被 Pygame 默认图标覆盖。
+保留的旧版通过 `pybooklid` 读取角度，`PolyAccordionSynth` 实时合成，`pygame-ce` 绘制 Retina 界面。两套实现的参数、键位和数值结果通过原生测试对照。
 
 ## 项目来源
 

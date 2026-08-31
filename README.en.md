@@ -1,5 +1,7 @@
 # MacbookAccordion
 
+> **This branch includes a complete native Swift edition.** Open `MacbookAccordion.xcodeproj` in Xcode, select `MacbookAccordion` → `My Mac`, and run with `⌘R`. Requires macOS 14+; no Python or third-party runtime dependencies. See the [native development notes](Native/README.md). Existing v1.0.0 release downloads remain the Python edition.
+
 <p align="center">
   <img src="assets/MacbookAccordion-AppIcon.png" width="160" alt="MacbookAccordion icon">
 </p>
@@ -28,9 +30,9 @@ This build supports both Apple Silicon and Intel Macs. It is not signed with an 
 
 ## Interface
 
-![Current MacbookAccordion interface](docs/assets/app-ui.jpg)
+![MacbookAccordion native SwiftUI interface](Native/native-ui.png)
 
-The default interface focuses on playing rather than synthesizer terminology: move the lid, follow the on-screen keyboard, and choose a sound style.
+The screenshot shows this branch's native SwiftUI edition: live bellows feedback, interactive piano keys, four sound styles, and a collapsible sound inspector. Existing parameters and playing logic are preserved. The v1.0.0 downloads above are still the legacy Python app.
 
 ## Features
 
@@ -39,11 +41,24 @@ The default interface focuses on playing rather than synthesizer terminology: mo
 - Includes Classic, Soft, Bright, and Fun sound styles
 - Keeps volume, lid sensitivity, pitch, and reset controls immediately available
 - Falls back to a keyboard demo mode when the lid-angle sensor is unavailable
-- Keeps the original detailed bellows and sound controls under “More settings”
+- Keeps the original detailed bellows and sound controls in the sound inspector (“More settings” in the legacy edition)
 
 ## Get started
 
-### Build the macOS app
+### Run the native edition in Xcode
+
+Open `MacbookAccordion.xcodeproj`, select `MacbookAccordion` → `My Mac`, and press `⌘R`. Requires macOS 14+; Python is not needed.
+
+Alternatively, build the universal app from the repository root:
+
+```bash
+./build_native_app.sh
+open 'build/native/Build/Products/Release/MacbookAccordion Native.app'
+```
+
+The native build does not replace the installed legacy app. See the [native development notes](Native/README.md) for parameter parity, validation, and limitations.
+
+### Build the legacy Python macOS app
 
 ```bash
 chmod +x build_mac_app.sh
@@ -64,7 +79,7 @@ open -a MacbookAccordion
 
 > The build script replaces `/Applications/MacbookAccordion.app` and removes the temporary `build/` and `dist/` directories after installation.
 
-### Run from Python
+### Run the legacy Python app
 
 ```bash
 python3 -m venv .venv
@@ -108,9 +123,9 @@ In demo mode, use `↑` / `↓` to simulate lid movement.
 | Bright | Faster response and a clearer sound |
 | Fun | More detune and air noise |
 
-The detailed controls for air build-up, leakage, smoothing, attack, release, detune, and air noise remain available under More settings.
+The detailed controls for air build-up, leakage, smoothing, attack, release, detune, and air noise remain available in the native sound inspector and in the legacy edition's More settings.
 
-## Requirements
+## Legacy Python requirements
 
 | Item | Notes |
 | --- | --- |
@@ -121,9 +136,9 @@ The detailed controls for air build-up, leakage, smoothing, attack, release, det
 
 ## How it works
 
-`pybooklid` reads the lid angle. The original bellows model converts lid velocity into air and playing intensity, while `PolyAccordionSynth` generates audio for the MIDI notes mapped to the computer keyboard.
+The native edition reads the lid angle through IOKit, preserves the original bellows model and synthesis formulas in Swift, outputs audio through AVAudioEngine, and renders the interface with SwiftUI.
 
-The interface is rendered with `pygame-ce` on a Retina canvas where supported. The app icon is applied both to the macOS bundle and the Pygame runtime window.
+The retained legacy edition uses `pybooklid`, `PolyAccordionSynth`, and a Retina `pygame-ce` interface. Native tests compare parameters, key mappings, and numerical output against the legacy implementation.
 
 ## Credits
 
